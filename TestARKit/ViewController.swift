@@ -19,9 +19,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
             addBox()
             addTapGestureToSceneView()
-
-
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -35,6 +32,7 @@ class ViewController: UIViewController {
         sceneView.session.pause()
     }
 
+    //MARK:- Adding 3D Object to ARSCNView
     func addBox(x: Float = 0, y: Float = 0, z: Float = -0.2) {
         let box = SCNBox(width: 0.1, height: 0.1, length: 0.1, chamferRadius: 0)
         
@@ -44,12 +42,13 @@ class ViewController: UIViewController {
         
         sceneView.scene.rootNode.addChildNode(boxNode)
     }
-    
+    //MARK:- Adding Gesture Recognizer to ARSCNView
     func addTapGestureToSceneView() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap(withGestureRecognizer:)))
         sceneView.addGestureRecognizer(tapGestureRecognizer)
     }
     
+    //MARK:- Removing Object From ARSCNView
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer) {
         let tapLocation = recognizer.location(in: sceneView)
         let hitTestResults = sceneView.hitTest(tapLocation)
@@ -65,6 +64,7 @@ class ViewController: UIViewController {
     }
 }
 
+//MARK:- detected points on the surface of real world objects
 extension float4x4 {
     var translation: float3 {
         let translation = self.columns.3
